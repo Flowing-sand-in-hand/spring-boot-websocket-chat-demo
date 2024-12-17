@@ -13,16 +13,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        // 注册一个STOMP的端点，客户端需要通过这个端点进行连接
         registry.addEndpoint("/ws").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/topic");   // Enables a simple in-memory broker
+        // 配置消息代理
+        registry.setApplicationDestinationPrefixes("/app"); // 应用程序的消息将会带有/app前缀
+        registry.enableSimpleBroker("/topic");   // 启用一个简单的内存消息代理
 
 
-        //   Use this for enabling a Full featured broker like RabbitMQ
+        // 使用RabbitMQ等全功能代理时的配置
 
         /*
         registry.enableStompBrokerRelay("/topic")
